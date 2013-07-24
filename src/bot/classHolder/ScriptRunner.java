@@ -3,7 +3,6 @@ package bot.classHolder;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-@Anotation(Author = "", Description = "", Name = "", Version = "")
 public class ScriptRunner extends Thread{
 
 	private Object theScript;

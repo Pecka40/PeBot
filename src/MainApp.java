@@ -7,8 +7,6 @@ import bot.classHolder.classHolder;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.lang.reflect.InvocationTargetException;
-
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
