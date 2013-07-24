@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: PeBot
+Bundle-SymbolicName: PeBot
+Bundle-Version: 1.0.0.qualifier
+Export-Package: .,
+ GUI,
+ bot.classHolder,
+ bot.listener,
+ bot.methodes
