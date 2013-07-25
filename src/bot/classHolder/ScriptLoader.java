@@ -63,10 +63,14 @@ public class ScriptLoader {
 	private Object loadScript(String name, String path)
 			throws InstantiationException, IllegalAccessException,
 			MalformedURLException {
-
+		
+		
+		
+		
 		Object script = null;
 
 		System.out.println(path);
+		System.out.println(name);
 
 		URL url = new URL("file:" + path);
 
@@ -79,6 +83,7 @@ public class ScriptLoader {
 			script = aClass.newInstance();
 		} catch (ClassNotFoundException | IllegalArgumentException
 				| SecurityException e) {
+			System.out.println("wtf here?");
 			e.printStackTrace();
 		}
 		return script;

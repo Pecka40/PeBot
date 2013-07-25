@@ -1,12 +1,15 @@
 import java.awt.EventQueue;
+import java.awt.Frame;
 
 import javax.swing.JFrame;
 
 import bot.classHolder.ScriptChooser;
 import bot.classHolder.classHolder;
+import bot.settings.settings;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -20,6 +23,10 @@ public class MainApp {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		new settings();
+		
+		
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
