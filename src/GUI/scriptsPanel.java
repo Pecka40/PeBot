@@ -1,88 +1,78 @@
 package GUI;
 
 import java.awt.Dimension;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BoundedRangeModel;
-import javax.swing.JScrollPane;
-import javax.swing.JSlider;
+import javax.swing.JPanel;
 
 import bot.classHolder.ScriptLoader.ScriptFile;
 
-import javax.swing.ScrollPaneConstants;
+public class scriptsPanel extends JPanel{
 
-public class scriptsPanel extends JScrollPane implements MouseListener{
+	private static List<scriptPanel> ScriptPanels = null;
+	private int height = 5;
 
-	scriptPanel[] ScriptPanels = null;
-	
-	public scriptsPanel(ScriptFile[] scriptFiles){
-		setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		this.addMouseListener(this);
+	public scriptsPanel(ScriptFile[] scriptFiles) {
+		this.setLayout(null);
+
 		List<scriptPanel> panels = new ArrayList<scriptPanel>();
-		for(int i = 1;i<scriptFiles.length+1;i++){
-			panels.add(new scriptPanel(scriptFiles[i-1].getName(),scriptFiles[i-1].getVersion(),scriptFiles[i-1].getAuthor(),scriptFiles[i-1].getDescription(),scriptFiles[i-1].getScript()));
-			if(i == 1){
-				panels.get(i-1).setBounds(10, 10, 410, 60);
-			}else{
-				panels.get(i-1).setBounds(10, 300, 430, 60);	
+
+		for (int i = 0; i < scriptFiles.length; i++) {
+
+			panels.add(new scriptPanel(scriptFiles[i].getName(), scriptFiles[i]
+					.getVersion(), scriptFiles[i].getAuthor(), scriptFiles[i]
+					.getDescription(), scriptFiles[i].getScript()));
+			height = height + 70;
+			if (i == 0) {
+				panels.get(i).setBounds(10, 5, 435, 60);
+			} else {
+				panels.get(i).setBounds(10, 70 * i + 5, 435, 60);
 			}
-			this.add(panels.get(i-1));
-			
+			this.add(panels.get(i));
 		}
-		ScriptPanels = panels.toArray(new scriptPanel[panels.size()]);
-
-	}
-	
-	@Override
-	public Dimension getMinimumSize() {
-		// TODO Auto-generated method stub
-		return new Dimension(200,200);
+		ScriptPanels = panels;
 	}
 
-	@Override
-	public Dimension getPreferredSize() {
-		// TODO Auto-generated method stub
-		return new Dimension(200,200);
-	}
-
-	public void repaintComponents(){
-		for(scriptPanel s:ScriptPanels){
+	public void repaintComponents() {
+		for (scriptPanel s : ScriptPanels) {
 			s.repaint();
 		}
 	}
+
+	public static Object getSelectedScript(){
+		Object o = null;
+		for(int i = 0;i<ScriptPanels.size();i++){
+			if(ScriptPanels.get(i).isSelected()){
+				o = ScriptPanels.get(i).getScript();
+				break;
+			}
+		}
+		return o;
+	}
 	
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		repaintComponents();
-		this.revalidate();
-		this.setViewport(this.createViewport());
+	public Dimension getPreferredSize() {
+		return new Dimension(435, height);
 	}
 
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	private static void reset(String name){
+		System.out.println(name);
+		for(int i = 0;i<ScriptPanels.size();i++){
+			ScriptPanels.get(i).selected(false);
+		}
+		for(int i = 0;i<ScriptPanels.size();i++){
+			System.out.println(ScriptPanels.get(i).getName());
+			if(ScriptPanels.get(i).getName().contentEquals(name)){
+				ScriptPanels.get(i).selected(true);
+				break;
+			}
+		}
 	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	
+	public static void selectedMe(String name){
+		System.out.println(name);
+		reset(name);
 	}
 
 }

@@ -43,7 +43,7 @@ public class ScriptRunner extends Thread{
 		}
 		
 		if(run){
-			SystemTrayIcon.scriptStart();
+			SystemTrayIcon.scriptStarted();
 		}
 		
 		while(run){

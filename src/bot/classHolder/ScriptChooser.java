@@ -1,26 +1,19 @@
 package bot.classHolder;
 
-import java.awt.LayoutManager;
-import java.awt.ScrollPane;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 
-import GUI.scriptPanel;
 import GUI.scriptsPanel;
+
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import bot.classHolder.ScriptLoader.ScriptFile;
-
-import java.awt.GridLayout;
-
 public class ScriptChooser extends JFrame{
-
-	private JPanel contentPane;
-	//private scriptsPanel scrollPane;
+	
+	private JFrame frame = this;
 	
 	/**
 	 * Create the frame.
@@ -29,40 +22,29 @@ public class ScriptChooser extends JFrame{
 	public ScriptChooser(){
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 485, 300);
-		
-		
-		ScriptFile[] a = new ScriptLoader().getScriptFile();
-		
-		scriptPanel s = new scriptPanel(a[0].getName(), null, null, null, a[0].getScript());
-		scriptPanel s2 = new scriptPanel(a[0].getName(), null, null, null, a[0].getScript());
-		
-		
-		
+		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		contentPane = new JPanel();
-		s.setBounds(10, 10, 300, 50);
-		contentPane.add(s);
-		s2.setBounds(10, 10, 300, 50);
-		contentPane.add(s2);
-		scrollPane.add(contentPane);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		
-		setContentPane(scrollPane);
+		scrollPane.setViewportView(new scriptsPanel(new ScriptLoader().getScriptFile()));
 		
-		contentPane.setLayout(null);
+		JButton btnNewButton = new JButton("Run");
+		btnNewButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new ScriptRunner(scriptsPanel.getSelectedScript());
+				frame.dispose();
+				try {
+					this.finalize();
+				} catch (Throwable e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		getContentPane().add(btnNewButton, BorderLayout.NORTH);
 		
-		//scrollPane = new scriptsPanel(new ScriptLoader().getScriptFile());
-		
-		
-		
-		
-		
-		JButton btnRunScript = new JButton("Run script");
-		btnRunScript.setBounds(354, 229, 105, 22);
-		contentPane.add(btnRunScript);
 		this.setVisible(true);
 		
 	}
-	
 }

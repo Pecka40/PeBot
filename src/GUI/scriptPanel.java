@@ -33,16 +33,12 @@ public class scriptPanel extends JPanel implements MouseListener {
 
 	@Override
 	public Dimension getPreferredSize() {
-		return new Dimension(200,200);
+		return new Dimension(410,60);
 	}
 
-	
-	
-	@Override
-	public Dimension getMinimumSize() {
-		return new Dimension(200,200);
-	}
+    private final Color Lime = new Color(0, 255, 51);
 
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -50,14 +46,36 @@ public class scriptPanel extends JPanel implements MouseListener {
 		g.setColor(Color.BLACK);
 		// g.drawImage(img, 10, 20, null);
 		g.drawString(name + "" + selected+ver, 30, 20);
+		if(selected){
+			this.setBackground(Lime);
+			
+		}else{
+			this.setBackground(null);
+		}
+		
 	}
-
+	
+	public String getName(){
+		return name;
+	}
+	
+	public void selected(boolean isSelected){
+		selected = isSelected;
+		this.repaint();
+	}
+	
+	public boolean isSelected(){
+		return selected;
+	}
+	
+	public Object getScript(){
+		return script;
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		selected = !selected;
-		this.repaint();
-		System.out.println("Starting Script");
-		new ScriptRunner(script);
+		System.out.println(name);
+		scriptsPanel.selectedMe(name);
 	}
 
 	@Override
