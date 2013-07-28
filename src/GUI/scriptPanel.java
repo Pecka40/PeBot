@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
@@ -9,6 +10,8 @@ import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 
 import bot.classHolder.ScriptRunner;
+
+import javax.swing.JScrollBar;
 
 public class scriptPanel extends JPanel implements MouseListener {
 
@@ -29,13 +32,24 @@ public class scriptPanel extends JPanel implements MouseListener {
 	}
 
 	@Override
+	public Dimension getPreferredSize() {
+		return new Dimension(200,200);
+	}
+
+	
+	
+	@Override
+	public Dimension getMinimumSize() {
+		return new Dimension(200,200);
+	}
+
+	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		setOpaque(true);
+		
 		g.setColor(Color.BLACK);
 		// g.drawImage(img, 10, 20, null);
 		g.drawString(name + "" + selected+ver, 30, 20);
-		this.setBackground(new Color(255, 249, 189));
 	}
 
 	@Override
@@ -69,5 +83,4 @@ public class scriptPanel extends JPanel implements MouseListener {
 		// TODO Auto-generated method stub
 
 	}
-
 }

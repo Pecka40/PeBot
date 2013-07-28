@@ -1,81 +1,68 @@
 package bot.classHolder;
 
+import java.awt.LayoutManager;
+import java.awt.ScrollPane;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-import bot.classHolder.ScriptLoader.ScriptFile;
 import GUI.scriptPanel;
 import GUI.scriptsPanel;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.lang.reflect.InvocationTargetException;
-
-import javax.swing.JScrollBar;
-
-import java.awt.ScrollPane;
-
 import javax.swing.JButton;
 
-public class ScriptChooser extends JFrame implements MouseListener {
+import bot.classHolder.ScriptLoader.ScriptFile;
+
+import java.awt.GridLayout;
+
+public class ScriptChooser extends JFrame{
 
 	private JPanel contentPane;
-
+	//private scriptsPanel scrollPane;
+	
 	/**
 	 * Create the frame.
 	 *
 	 */
-	public ScriptChooser(classHolder holder){
+	public ScriptChooser(){
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 485, 300);
+		
+		
+		ScriptFile[] a = new ScriptLoader().getScriptFile();
+		
+		scriptPanel s = new scriptPanel(a[0].getName(), null, null, null, a[0].getScript());
+		scriptPanel s2 = new scriptPanel(a[0].getName(), null, null, null, a[0].getScript());
+		
+		
+		
+		
+		JScrollPane scrollPane = new JScrollPane();
 		contentPane = new JPanel();
+		s.setBounds(10, 10, 300, 50);
+		contentPane.add(s);
+		s2.setBounds(10, 10, 300, 50);
+		contentPane.add(s2);
+		scrollPane.add(contentPane);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		
+		setContentPane(scrollPane);
+		
 		contentPane.setLayout(null);
 		
-		scriptsPanel scrollPane = new scriptsPanel(holder.scriptLoader().getScriptFile(
-				holder.getPropLoader().getPathToScripts()));
-		scrollPane.setBounds(10, 11, 449, 213);
-		contentPane.add(scrollPane);
+		//scrollPane = new scriptsPanel(new ScriptLoader().getScriptFile());
+		
+		
+		
 		
 		
 		JButton btnRunScript = new JButton("Run script");
 		btnRunScript.setBounds(354, 229, 105, 22);
 		contentPane.add(btnRunScript);
-
-		//addScripts(holder);
-
 		this.setVisible(true);
+		
 	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	
 }

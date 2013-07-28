@@ -8,23 +8,18 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import bot.settings.Settings;
+
 public class ScriptLoader {
-
-	classHolder holder;
-
-	public ScriptLoader(classHolder holder) {
-		this.holder = holder;
-	}
 
 	public Object[] getScripts() {
 
 		List<Object> objList = new ArrayList<Object>();
 
-		String path = holder.getPropLoader().getPathToScripts();
-		System.out.println(path+"here?");
+		String path = Settings.getPath("Scripts");
 		File[] files = new File(path).listFiles();
 		List<File> filesToCheck = new ArrayList<File>();
-		System.out.println(files == null);
+		
 		for (File file : files) {
 			if (file.isFile()) {
 				filesToCheck.add(file);
@@ -34,7 +29,6 @@ public class ScriptLoader {
 		for (int i = 0; i < filesToCheck.size(); i++) {
 
 			try {
-				System.out.println(filesToCheck.get(i).getName());
 				Object nextScript = loadScript(
 						filesToCheck
 								.get(i)
@@ -64,13 +58,7 @@ public class ScriptLoader {
 			throws InstantiationException, IllegalAccessException,
 			MalformedURLException {
 		
-		
-		
-		
 		Object script = null;
-
-		System.out.println(path);
-		System.out.println(name);
 
 		URL url = new URL("file:" + path);
 
@@ -83,13 +71,12 @@ public class ScriptLoader {
 			script = aClass.newInstance();
 		} catch (ClassNotFoundException | IllegalArgumentException
 				| SecurityException e) {
-			System.out.println("wtf here?");
 			e.printStackTrace();
 		}
 		return script;
 	}
 
-	public ScriptFile[] getScriptFile(String path){
+	public ScriptFile[] getScriptFile(){
 
 		Object[] scripts = getScripts();
 

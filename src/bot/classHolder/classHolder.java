@@ -15,7 +15,7 @@ public class classHolder {
 	private ScreenCapturer capturer = new ScreenCapturer();
 	//private ScriptRunner scriptRunner = new ScriptRunner();
 	//private ScriptChooser scriptChooser = new ScriptChooser(this);
-	private ScriptLoader scriptLoader = new ScriptLoader(this);
+	//private ScriptLoader scriptLoader = new ScriptLoader(this);
 	private ScreenData screenData = new ScreenData(this);
 	private Robot robo;
 	private Mouse mouse = new Mouse(this);
@@ -87,9 +87,6 @@ public class classHolder {
 		return capturer;
 	}
 
-	public ScriptLoader scriptLoader() {
-		return scriptLoader;
-	}
 
 	public propertieLoader getPropLoader() {
 		return propLoader;

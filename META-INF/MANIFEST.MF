@@ -8,3 +8,5 @@ Export-Package: .,
  bot.classHolder,
  bot.listener,
  bot.methodes
+Bundle-ClassPath: .,
+ forms-1.3.0.jar

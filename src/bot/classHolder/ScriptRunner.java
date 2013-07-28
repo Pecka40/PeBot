@@ -14,7 +14,8 @@ public class ScriptRunner extends Thread{
 	}
 	
 	
-	boolean run = true;
+	private static boolean run = true;
+	private static boolean pause = false;
 	
 	@Override
 	public void run() {
@@ -41,6 +42,10 @@ public class ScriptRunner extends Thread{
 			e1.printStackTrace();
 		}
 		
+		if(run){
+			SystemTrayIcon.scriptStart();
+		}
+		
 		while(run){
 			try {
 				int timeToSleep = (int) loop.invoke(theScript);
@@ -53,13 +58,22 @@ public class ScriptRunner extends Thread{
 			} catch (IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException | InterruptedException e) {
 				e.printStackTrace();
-				System.out.println("Nesanāca loop");
 			}
 		}
 		
 		
 	}
-
 	
+	public static boolean isRunning(){
+		return run;
+	}
+
+	public static void pause(boolean toPause){
+		pause = toPause;
+	}
+	
+	public static void stopScript(){
+		run = false;
+	}
 
 }
